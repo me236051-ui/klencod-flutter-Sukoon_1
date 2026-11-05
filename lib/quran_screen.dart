@@ -102,8 +102,9 @@ class _QuranScreenState extends State<QuranScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('اختر القارئ:', style: TextStyle(fontSize: 16, fontWeight: FontWeight: FontWeight.bold)),
-              DropdownButton<Reciter>(
+              const Text('اختر القارئ:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              
+             DropdownButton<Reciter>(
                 value: _selectedReciter,
                 onChanged: (Reciter? newReciter) {
                   if (newReciter != null) {

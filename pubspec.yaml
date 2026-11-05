@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # مكتبة تنسيق التواريخ والأوقات
+  intl: ^0.19.0
+
   # لتشغيل القرآن الكريم والتلاوات الصوتية في الخلفية
   just_audio: ^0.9.36
   audio_service: ^0.18.12
@@ -19,7 +22,7 @@ dependencies:
   adhan: ^2.0.0
   geolocator: ^10.1.0
 
-  # للإشعارات والأذان والاهتزاز في المسبحة
+  # للإشعارات والاهتزاز في المسبحة
   flutter_local_notifications: ^17.0.0
   vibration: ^1.8.4
 
