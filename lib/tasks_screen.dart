@@ -9,16 +9,19 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  final List> _tasks = [
-    {'title': 'أداء صلاة الفجر في جماعة', 'isCompleted': false},
-    {'title': 'قراءة ورد القرآن الكريم (صفحة على الأقل)', 'isCompleted': false},
-    {'title': 'أذكار الصباح والمساء', 'isCompleted': false},
-    {'title': 'أداء صلاة الظهر في وقتها', 'isCompleted': false},
-    {'title': 'أداء صلاة العصر في وقتها', 'isCompleted': false},
-    {'title': 'أداء صلاة المغرب في وقتها', 'isCompleted': false},
-    {'title': 'أداء صلاة العشاء في وقتها', 'isCompleted': false},
-    {'title': 'السنن الراتبة والنوافل', 'isCompleted': false},
+  // تخزين حالات المهام عبر مصفوفة بوليان بسيطة لتجنب أخطاء الأنظمة
+  final List<String> _taskTitles = [
+    'أداء صلاة الفجر في جماعة',
+    'قراءة ورد القرآن الكريم (صفحة على الأقل)',
+    'أذكار الصباح والمساء',
+    'أداء صلاة الظهر في وقتها',
+    'أداء صلاة العصر في وقتها',
+    'أداء صلاة المغرب في وقتها',
+    'أداء صلاة العشاء في وقتها',
+    'السنن الراتبة والنوافل',
   ];
+
+  final List<bool> _taskStatus = [false, false, false, false, false, false, false, false];
 
   @override
   void initState() {
@@ -29,8 +32,8 @@ class _TasksScreenState extends State<TasksScreen> {
   Future<void> _loadTasksState() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      for (int i = 0; i < _tasks.length; i++) {
-        _tasks[i]['isCompleted'] = prefs.getBool('task_$i') ?? false;
+      for (int i = 0; i < _taskStatus.length; i++) {
+        _taskStatus[i] = prefs.getBool('task_$i') ?? false;
       }
     });
   }
@@ -58,10 +61,9 @@ class _TasksScreenState extends State<TasksScreen> {
           children: [
             ListView.builder(
               padding: const EdgeInsets.all(16.0),
-              itemCount: _tasks.length,
+              itemCount: _taskTitles.length,
               itemBuilder: (context, index) {
-                final task = _tasks[index];
-                final bool isCompleted = task['isCompleted'] as bool;
+                final bool isCompleted = _taskStatus[index];
                 
                 return Card(
                   elevation: 2,
@@ -69,7 +71,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: CheckboxListTile(
                     title: Text(
-                      task['title'] as String,
+                      _taskTitles[index],
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -83,7 +85,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     activeColor: Colors.teal,
                     onChanged: (bool? value) {
                       setState(() {
-                        _tasks[index]['isCompleted'] = value ?? false;
+                        _taskStatus[index] = value ?? false;
                       });
                       _saveTaskState(index, value ?? false);
                     },
