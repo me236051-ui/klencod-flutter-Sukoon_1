@@ -22,7 +22,6 @@ class _PrayerScreenState extends State<PrayerScreen> {
     _fetchPrayerTimes();
   }
 
-  // تحديد الموقع وحساب مواقيت الصلاة وجدولة الإشعارات
   Future<void> _fetchPrayerTimes() async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -69,7 +68,6 @@ class _PrayerScreenState extends State<PrayerScreen> {
         _isLoading = false;
       });
 
-      // جدولة الإشعارات لأوقات الصلاة
       _scheduleAllNotifications(prayerTimes);
     } catch (e) {
       setState(() {
@@ -79,13 +77,31 @@ class _PrayerScreenState extends State<PrayerScreen> {
     }
   }
 
-  // جدولة الإشعارات تلقائياً
   void _scheduleAllNotifications(PrayerTimes times) {
-    // يمكنك إضافة منطق الجدولة الزمنية هنا بحسب وقت كل صلاة
+    // منطق الجدولة
   }
 
   String _formatTime(DateTime time) {
     return DateFormat.jm('ar').format(time);
+  }
+
+  String _getPrayerName(Prayer prayer) {
+    switch (prayer) {
+      case Prayer.fajr:
+        return 'الفجر';
+      case Prayer.sunrise:
+        return 'الشروق';
+      case Prayer.dhuhr:
+        return 'الظهر';
+      case Prayer.asr:
+        return 'العصر';
+      case Prayer.maghrib:
+        return 'المغرب';
+      case Prayer.isha:
+        return 'العشاء';
+      default:
+        return '';
+    }
   }
 
   @override
@@ -144,4 +160,38 @@ class _PrayerScreenState extends State<PrayerScreen> {
                                 _prayerTimes != null
                                     ? _getPrayerName(_prayerTimes!.nextPrayer())
                                     : '',
-                                    
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      if (_prayerTimes != null) ...[
+                        _buildPrayerTile('الفجر', _prayerTimes!.fajr),
+                        _buildPrayerTile('الشروق', _prayerTimes!.sunrise),
+                        _buildPrayerTile('الظهر', _prayerTimes!.dhuhr),
+                        _buildPrayerTile('العصر', _prayerTimes!.asr),
+                        _buildPrayerTile('المغرب', _prayerTimes!.maghrib),
+                        _buildPrayerTile('العشاء', _prayerTimes!.isha),
+                      ],
+                    ],
+                  ),
+                ),
+    );
+  }
+
+  Widget _buildPrayerTile(String name, DateTime time) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: ListTile(
+        title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        trailing: Text(_formatTime(time), style: const TextStyle(fontSize: 16)),
+      ),
+    );
+  }
+}
