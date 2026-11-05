@@ -26,7 +26,6 @@ class _TasksScreenState extends State<TasksScreen> {
     _loadTasksState();
   }
 
-  // تحميل حالة المهام المحفوظة مسبقاً
   Future<void> _loadTasksState() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -36,7 +35,6 @@ class _TasksScreenState extends State<TasksScreen> {
     });
   }
 
-  // حفظ حالة المهمة عند تغييرها
   Future<void> _saveTaskState(int index, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('task_$index', value);
