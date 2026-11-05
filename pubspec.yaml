@@ -1,0 +1,39 @@
+name: sukoon
+description: "تطبيق سكون - أذكار، قرآن كريم، مواقيت الصلاة، مسبحة ومهام"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # لتشغيل القرآن الكريم والتلاوات الصوتية في الخلفية
+  just_audio: ^0.9.36
+  audio_service: ^0.18.12
+
+  # لحساب مواقيت الصلاة والموقع
+  adhan: ^2.0.0
+  geolocator: ^10.1.0
+
+  # للإشعارات والأذان والاهتزاز في المسبحة
+  flutter_local_notifications: ^17.0.0
+  vibration: ^1.8.4
+
+  # لتخزين المهام والأذكار محلياً على الجهاز
+  shared_preferences: ^2.2.2
+
+  # لأيقونات الواجهات والتصميم
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
