@@ -9,7 +9,6 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  // تم تصحيح نوع البيانات هنا بوضوح ليعمل بدون أخطاء
   final List> _tasks = [
     {'title': 'أداء صلاة الفجر في جماعة', 'isCompleted': false},
     {'title': 'قراءة ورد القرآن الكريم (صفحة على الأقل)', 'isCompleted': false},
@@ -63,29 +62,32 @@ class _TasksScreenState extends State<TasksScreen> {
               padding: const EdgeInsets.all(16.0),
               itemCount: _tasks.length,
               itemBuilder: (context, index) {
+                final task = _tasks[index];
+                final bool isCompleted = task['isCompleted'] as bool;
+                
                 return Card(
                   elevation: 2,
                   margin: const EdgeInsets.symmetric(vertical: 6),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: CheckboxListTile(
                     title: Text(
-                      _tasks[index]['title'],
+                      task['title'] as String,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        decoration: _tasks[index]['isCompleted']
+                        decoration: isCompleted
                             ? TextDecoration.lineThrough
                             : TextDecoration.none,
-                        color: _tasks[index]['isCompleted'] ? Colors.grey : Colors.black,
+                        color: isCompleted ? Colors.grey : Colors.black,
                       ),
                     ),
-                    value: _tasks[index]['isCompleted'],
+                    value: isCompleted,
                     activeColor: Colors.teal,
                     onChanged: (bool? value) {
                       setState(() {
                         _tasks[index]['isCompleted'] = value ?? false;
                       });
-                      _saveTaskState(index, _tasks[index]['isCompleted']);
+                      _saveTaskState(index, value ?? false);
                     },
                   ),
                 );
