@@ -22,9 +22,9 @@ dependencies:
   adhan: ^2.0.0
   geolocator: ^10.1.0
 
-  # للإشعارات والاهتزاز في المسبحة
+  # للإشعارات والاهتزاز في المسبحة (تم التحديث هنا)
   flutter_local_notifications: ^17.0.0
-  vibration: ^1.8.4
+  vibration: ^3.1.1
 
   # لتخزين المهام والأذكار محلياً على الجهاز
   shared_preferences: ^2.2.2
